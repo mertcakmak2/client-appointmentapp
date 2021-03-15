@@ -29,8 +29,8 @@ export default {
       selectedItem: "",
       items: [
         { text: "Anasayfa", icon: "mdi-view-dashboard", name:"Dashboard", route:"/" },
-        { text: "Profilim", icon: "mdi-account", name:"Profile", route:"/profile" },
-        { text: "Maç Ayarlaa", icon: "mdi-gamepad-variant", name:"Appointment", route:"appointment" },
+        { text: "Profilimm", icon: "mdi-account", name:"Profile", route:"/profile" },
+        { text: "Maç Ayarla", icon: "mdi-gamepad-variant", name:"Appointment", route:"appointment" },
         { text: "Önceki Maçlarım", icon: "mdi-history" },
         { text: "Galeri", icon: "mdi-folder-multiple-image" },
       ],
