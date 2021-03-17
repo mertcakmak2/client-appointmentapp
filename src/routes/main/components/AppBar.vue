@@ -12,19 +12,21 @@
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
 
-    <v-btn depressed color="#323EBE"> Maç Ayarla </v-btn>
+    <v-btn depressed color="#323EBE" @click="setMatch"> Maç Ayarla </v-btn>
 
     <v-btn icon color="grey darken-1">
       <v-icon color="blue-grey darken-2">mdi-message-text</v-icon>
     </v-btn>
 
     <v-btn icon color="grey darken-1">
-      <v-icon color="blue-grey darken-2">mdi-bell-ring</v-icon>
+      <v-badge  content="3" >
+      <v-icon color="blue-grey darken-2" @click="toNotifications">mdi-bell-ring</v-icon>
+      </v-badge>
     </v-btn>
 
-    <v-menu bottom min-width="200px" rounded offset-y>
+    <v-menu bottom min-width="200px" rounded offset-y >
       <template v-slot:activator="{ on }">
-        <v-btn icon x-large v-on="on">
+        <v-btn icon x-large v-on="on" class="profilePic">
           <v-avatar>
             <img
               src="https://scontent.fasr1-2.fna.fbcdn.net/v/t1.0-9/69487512_10220233600620226_3903073967149154304_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=0YUApAoC8QMAX_nhpJY&_nc_oc=AQnL0H1D807dcyKZwsocfBFsAsPAgsl9KHOmTsIw5kbNKtEo7TJVrQQcFLBSlYT6oPc&_nc_ht=scontent.fasr1-2.fna&oh=4242432b263b0ea4c40141e8a434ec54&oe=606C8170"
@@ -49,7 +51,7 @@
 
             <v-divider class="my-3"></v-divider>
 
-            <v-btn depressed rounded text> Profili Düzenle </v-btn>
+            <v-btn depressed rounded text @click="editProfile"> Profili Düzenle </v-btn>
 
             <v-divider class="my-3"></v-divider>
 
@@ -70,9 +72,24 @@ export default {
   data() {
     return {};
   },
+  methods:{
+    editProfile() {
+      this.$router.push("/profile")
+    },
+    setMatch() {
+      this.$router.push("/appointment")
+    },
+    toNotifications() {
+      this.$router.push("/notifications")
+    }
+  }
 };
 </script>
 
 <style scoped>
+
+.profilePic{
+  padding-left: 10px !important;
+}
 
 </style>

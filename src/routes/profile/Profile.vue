@@ -22,6 +22,7 @@
     </v-tabs>
 
     <v-tabs-items v-model="tab">
+
       <v-tab-item >
         <v-card color="basil" flat>
           <my-info class="formComp"/>
@@ -30,13 +31,7 @@
 
       <v-tab-item >
         <v-card color="basil" flat>
-          <v-card-text>2. tab içeriği</v-card-text>
-        </v-card>
-      </v-tab-item>
-
-      <v-tab-item >
-        <v-card color="basil" flat>
-          <v-card-text>3. tab içeriği</v-card-text>
+          <pre-matches/>
         </v-card>
       </v-tab-item>
 
@@ -47,9 +42,12 @@
 <script>
 
 import MyInfo from './components/MyInfo.vue'
+import PreMatches from './components/PreMatches.vue'
+
 export default {
   components: {
-    MyInfo
+    MyInfo,
+    PreMatches
   },
   name: "Profile",
   data() {

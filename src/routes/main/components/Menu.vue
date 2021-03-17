@@ -1,5 +1,5 @@
 <template>
-  <v-sheet rounded="lg" min-height="220" class="sheet">
+  <v-sheet rounded="lg" min-height="268" >
     <v-list dense>
       <v-subheader>Uygulamalar</v-subheader>
       <v-list-item-group v-model="selectedItem" color="primary">
@@ -35,6 +35,12 @@ export default {
         { text: "Turnuvalar", icon: "mdi-trophy" },
       ],
     };
+  },
+  watch:{
+    $route(to) {
+      var findRoute = this.items.find(x=>x.name == to.name)
+      if(!findRoute) this.selectedItem = null;
+    }
   },
   mounted(){
     var routeName = this.$route.matched[0].name
