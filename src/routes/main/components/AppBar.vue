@@ -8,15 +8,6 @@
       src="https://i0.wp.com/softwareengineeringdaily.com/wp-content/uploads/2018/09/dev-community.png?fit=5000%2C2941&ssl=1"
     ></v-img>
 
-    <v-text-field
-      background-color="white"
-      light
-      class="searchInput"
-      label="Ara.."
-      single-line
-      solo
-    ></v-text-field>
-
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
@@ -83,10 +74,5 @@ export default {
 </script>
 
 <style scoped>
-
-.searchInput {
-  margin-top: 30px;
-  margin-left: 20px;
-}
 
 </style>

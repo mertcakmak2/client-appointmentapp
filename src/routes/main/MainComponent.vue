@@ -1,6 +1,7 @@
 <template>
   <div>
 
+    <!-- App Bar Componenti -->
     <app-bar/>
 
     <v-main class="grey lighten-3">
@@ -9,20 +10,25 @@
           
           <v-col cols="12" sm="3">
             
+            <!-- Sol Menü Componenti -->
             <Menu/>
                 
+            <!-- Hava Durumu Componenti -->
             <weather-card/>
 
           </v-col>
 
           <v-col rounded="lg" cols="12" sm="6">
             <v-sheet min-height="70vh" rounded="lg">
+
               <slot></slot>
+
             </v-sheet>
           </v-col>
 
           <v-col cols="12" sm="3">
 
+            <!-- Sağ resim Componenti -->
             <image-grid/>
 
           </v-col>
@@ -54,7 +60,6 @@ export default {
   },
   mounted() {
     // alert(this.$props.slotComponent);
-    console.log("mounted");
   },
   methods:{
    

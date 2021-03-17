@@ -1,17 +1,17 @@
 <template>
-  <main-component :slotComponent="slotComponent">
+  <!-- <main-component :slotComponent="slotComponent"> -->
       <Calendar/>
-  </main-component>
+  <!-- </main-component> -->
 </template>
 
 <script>
-import MainComponent from "../main/MainComponent.vue";
+// import MainComponent from "../main/MainComponent.vue";
 import Calendar from "./components/calendar";
 
 export default {
   name: "index",
   components: {
-    MainComponent,
+    // MainComponent,
     Calendar,
   },
   data() {

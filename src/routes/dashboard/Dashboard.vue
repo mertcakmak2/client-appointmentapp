@@ -1,5 +1,4 @@
 <template>
-  <main-component>
     <v-carousel
       class="slider"
       :continuous="false"
@@ -16,15 +15,12 @@
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
-  </main-component>
 </template>
 
 <script>
-import MainComponent from "../main/MainComponent.vue";
 
 export default {
   components: {
-    MainComponent,
   },
   name: "Dashboard",
   data() {

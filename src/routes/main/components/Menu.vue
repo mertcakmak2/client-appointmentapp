@@ -1,5 +1,5 @@
 <template>
-  <v-sheet rounded="lg" min-height="268">
+  <v-sheet rounded="lg" min-height="220" class="sheet">
     <v-list dense>
       <v-subheader>Uygulamalar</v-subheader>
       <v-list-item-group v-model="selectedItem" color="primary">
@@ -31,8 +31,8 @@ export default {
         { text: "Anasayfa", icon: "mdi-view-dashboard", name:"Dashboard", route:"/" },
         { text: "Profilim", icon: "mdi-account", name:"Profile", route:"/profile" },
         { text: "Maç Ayarla", icon: "mdi-gamepad-variant", name:"Appointment", route:"appointment" },
-        { text: "Önceki Maçlarım", icon: "mdi-history" },
-        { text: "Galerii", icon: "mdi-folder-multiple-image" },
+        { text: "Galeri", icon: "mdi-folder-multiple-image" },
+        { text: "Turnuvalar", icon: "mdi-trophy" },
       ],
     };
   },
@@ -50,4 +50,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
