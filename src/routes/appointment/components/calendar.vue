@@ -37,10 +37,23 @@
         >
           <template v-slot:event="{ event }">
             <div class="v-event-draggable">
-              <strong>{{ event.name }}</strong
-              ><br />
+              <strong>{{ event.customer.name }}</strong>
+              -
               {{ formatEventTime(event.start) }} -
               {{ formatEventTime(event.end) }}
+              <br />
+              <v-row no-gutters>
+                <v-col cols="12" sm="1">
+                  <v-avatar color="primary" size="10"></v-avatar>
+                </v-col>
+                <v-col cols="12" sm="11">
+                  <h5>Onaylandı</h5>
+                </v-col>
+              </v-row>
+              <!-- <div>
+              <h5>Onaylandı</h5>
+              <v-avatar color="primary" size="10"></v-avatar>
+              </div> -->
             </div>
           </template>
         </v-calendar>
@@ -55,6 +68,7 @@
 
 <script>
 import CreateAppointment from "../components/createAppointment";
+// import appointmentService from "../services/appointmentService";
 
 export default {
   name: "Calendar",
@@ -65,51 +79,79 @@ export default {
     return {
       focus: "",
       newappointment: {}, //oluşturulacak yeni appointment
-      categories: ["Saha 1", "Saha 2"],
+      categories: ["saha1", "saha2"],
       isOpen: false,
       events: [],
       dates: [
         {
-          id: 1,
-          name: "Ali Veli",
-          start: "2021-03-17 10:00",
-          end: "2021-03-17 11:00",
-          color: "blue",
-          timed: true,
-          category: "Saha 1",
-        },
-        {
-          id: 2,
-          name: "Mert Çakmak",
-          start: "2021-03-17 15:00",
-          end: "2021-03-17 16:30",
-          color: "indigo",
-          timed: true,
-          category: "Saha 2",
-        },
-        {
-          id: 3,
-          name: "Test Test",
-          start: "2021-03-17 13:00",
-          end: "2021-03-17 14:30",
-          color: "cyan",
-          timed: true,
-          category: "Saha 1",
-        },
-        {
-          id: 4,
-          name: "Admin Admin",
-          start: "2021-03-17 18:00",
-          end: "2021-03-17 20:30",
+          appId: 1,
+          customer: {
+            cusId: 1,
+            name: "test",
+            surname: "test",
+            username: "test",
+            email: "test@gmail.com",
+            phone: "1212",
+            crdt: "2021-03-05T21:04:35.000+00:00",
+          },
+          category: "saha1",
+          start: "2021-03-20 10:00",
+          end: "2021-03-20 11:00",
+          crdt: null,
           color: "deep-purple",
-          timed: true,
-          category: "Saha 2",
         },
+
+        
+        
+
+        // {
+        //   id: 1,
+        //   name: "Ali Veli",
+        //   start: "2021-03-17 10:00",
+        //   end: "2021-03-17 11:00",
+        //   color: "blue",
+        //   timed: true,
+        //   category: "Saha 1",
+        // },
+        // {
+        //   id: 2,
+        //   name: "Mert Çakmak",
+        //   start: "2021-03-17 15:00",
+        //   end: "2021-03-17 16:30",
+        //   color: "indigo",
+        //   timed: true,
+        //   category: "Saha 2",
+        // },
+        // {
+        //   id: 3,
+        //   name: "Test Test",
+        //   start: "2021-03-17 13:00",
+        //   end: "2021-03-17 14:30",
+        //   color: "cyan",
+        //   timed: true,
+        //   category: "Saha 1",
+        // },
+        // {
+        //   id: 4,
+        //   name: "Admin Admin",
+        //   start: "2021-03-17 18:00",
+        //   end: "2021-03-17 20:30",
+        //   color: "deep-purple",
+        //   timed: true,
+        //   category: "Saha 2",
+        // },
       ],
     };
   },
   mounted() {
+    // var that = this;
     this.$refs.calendar.checkChange();
+    // alert("sa")
+    // appointmentService.getAppointments().then((res) => {
+    //   var dates = res.data;
+    //   dates.map((x) => (x.color = "deep-purple"));
+    //   // that.events = dates;
+    // });
   },
   methods: {
     getEventColor(event) {
@@ -125,10 +167,9 @@ export default {
       this.$refs.calendar.next();
     },
     fetchEvents({ start, end }) {
-
       var begdt = start;
       var enddt = end;
-      this.events = this.dates
+      this.events = this.dates;
       console.log("fetchevents", begdt, enddt);
     },
     rnd(a, b) {
@@ -157,7 +198,7 @@ export default {
 </script>
 
 <style scoped>
-  .calendar {
-    margin-top: 3px;
-  }
+.calendar {
+  margin-top: 3px;
+}
 </style>

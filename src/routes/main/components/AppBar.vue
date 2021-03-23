@@ -18,13 +18,15 @@
       <v-icon color="blue-grey darken-2">mdi-message-text</v-icon>
     </v-btn>
 
-    <v-btn icon color="grey darken-1">
-      <v-badge  content="3" >
-      <v-icon color="blue-grey darken-2" @click="toNotifications">mdi-bell-ring</v-icon>
+    <v-btn icon color="grey darken-1" v-if="getAuthentication">
+      <v-badge content="3">
+        <v-icon color="blue-grey darken-2" @click="toNotifications"
+          >mdi-bell-ring</v-icon
+        >
       </v-badge>
     </v-btn>
 
-    <v-menu bottom min-width="200px" rounded offset-y >
+    <v-menu bottom min-width="200px" rounded offset-y v-if="getAuthentication">
       <template v-slot:activator="{ on }">
         <v-btn icon x-large v-on="on" class="profilePic">
           <v-avatar>
@@ -51,15 +53,21 @@
 
             <v-divider class="my-3"></v-divider>
 
-            <v-btn depressed rounded text @click="editProfile"> Profili Düzenle </v-btn>
+            <v-btn depressed rounded text @click="editProfile">
+              Profili Düzenle
+            </v-btn>
 
             <v-divider class="my-3"></v-divider>
 
-            <v-btn depressed rounded text> Çıkış </v-btn>
+            <v-btn depressed rounded text @click="logout"> Çıkış </v-btn>
           </div>
         </v-list-item-content>
       </v-card>
     </v-menu>
+
+    <v-btn outlined color="error" @click="toLogin" class="loginButton" v-if="!getAuthentication"> GİRİŞ YAP </v-btn>
+
+    <v-btn depressed color="#323EBE" @click="toRegister" class="loginButton" v-if="!getAuthentication"> KAYIT OL </v-btn>
 
     <v-spacer></v-spacer>
   </v-app-bar>
@@ -67,29 +75,48 @@
 
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Appbar",
   data() {
     return {};
   },
-  methods:{
+  computed: {
+    ...mapGetters([
+      "getAuthentication"
+    ]),
+  },
+  methods: {
     editProfile() {
-      this.$router.push("/profile")
+      this.$router.push("/profile");
     },
     setMatch() {
-      this.$router.push("/appointment")
+      this.$router.push("/appointment");
     },
     toNotifications() {
-      this.$router.push("/notifications")
-    }
-  }
+      this.$router.push("/notifications");
+    },
+    toLogin(){
+      this.$router.push("/login");
+    },
+    toRegister(){
+      this.$router.push("/register");
+    },
+    logout() {
+      this.$store.commit("logout");
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
 <style scoped>
-
-.profilePic{
+.profilePic {
   padding-left: 10px !important;
 }
 
+.loginButton {
+  margin-left: 10px !important;
+}
 </style>

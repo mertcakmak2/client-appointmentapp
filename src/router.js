@@ -8,12 +8,10 @@ import Dashboard from './routes/dashboard/Dashboard';
 import Profile from './routes/profile/Profile';
 import Appointment from './routes/appointment/Appointment';
 import Login from './routes/login/Login';
+import Register from './routes/register/Register'
 import Signup from './routes/signup/SignUp';
 import Notification from './routes/notification/Notification'
-
-
-//404
-import NotFound from './routes/404/NotFound'
+import Admin from './routes/admin/Admin'
 
 const router = new VueRouter({
     mode: "history",
@@ -26,7 +24,10 @@ const router = new VueRouter({
         {
             path: '/profile',
             component: Profile,
-            name: 'Profile'
+            name: 'Profile',
+            meta:{
+                auth:true
+            }
         },
         {
             path: '/appointment',
@@ -39,36 +40,60 @@ const router = new VueRouter({
             name: 'Login'
         },
         {
+            path: '/register',
+            component: Register,
+            name: 'Register'
+        },
+        {
             path: '/Signup',
             component: Signup,
             name: "Signup"
         },
         {
-            path: '/notfound',
-            component: NotFound,
-            name: "NotFound"
-        },
-        {
             path: '/notifications',
             component: Notification,
-            name: "Notification"
-        }
+            name: "Notification",
+            meta:{
+                auth:true
+            }
+        },
+        {
+            path: '/management',
+            component: Admin,
+            name: "Admin",
+            meta:{
+                auth:true
+            }
+        },
     ],
 
 })
 
 router.beforeEach((to, from, next) => {
-    // var userToken = localStorage.getItem("token")
+    var userToken = localStorage.getItem("token");
     console.log(from);
+
+    // Böyle bir route yoks anasayfaya yönlendirir..
     if(!to.matched.length){
-        router.push("/notfound");   
+        router.push("/");   
         return;
     }
-    next()
 
-    // if(userToken) next();
-    // else if(to.name == "Login") next();
-    // else router.push("/login");
+    // Kullanıcı giriş yaptıysa erişebilecek routeler..
+    if(to.meta.auth){
+        let path = userToken ? to.path : "/";
+        if(!userToken) router.push(path);
+        else next();
+    }
+
+    // Kullanıcı giriş yaptıysa/yapmadıysa login/register route kontrolü
+    if(to.name == "Login" || to.name == "Register"){
+        let path = userToken ? "/" : to.path;
+        if(!userToken) next();
+        else router.push(path);
+        return;
+    }
+    next();
 })
 
 export default router;
