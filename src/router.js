@@ -9,7 +9,6 @@ import Profile from './routes/profile/Profile';
 import Appointment from './routes/appointment/Appointment';
 import Login from './routes/login/Login';
 import Register from './routes/register/Register'
-import Signup from './routes/signup/SignUp';
 import Notification from './routes/notification/Notification'
 import Admin from './routes/admin/Admin'
 
@@ -43,11 +42,6 @@ const router = new VueRouter({
             path: '/register',
             component: Register,
             name: 'Register'
-        },
-        {
-            path: '/Signup',
-            component: Signup,
-            name: "Signup"
         },
         {
             path: '/notifications',
