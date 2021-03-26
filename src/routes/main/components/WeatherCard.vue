@@ -4,20 +4,22 @@
       <v-list-item two-line>
         <v-list-item-content>
           <v-list-item-title class="headline">
-            San Francisco
+            {{ this.selectedDay.city }}
           </v-list-item-title>
-          <v-list-item-subtitle
-            >Mon, 12:30 PM, Mostly sunny</v-list-item-subtitle
-          >
+          <v-list-item-subtitle>{{
+            this.selectedDay.description
+          }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
       <v-card-text>
         <v-row align="center">
-          <v-col class="display-3" cols="6"> 23&deg;C </v-col>
+          <v-col class="display-3" cols="6">
+            {{ this.selectedDay.degree + "&deg;C" }}
+          </v-col>
           <v-col cols="6">
             <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/sun.png"
+              :src="this.selectedDay.weatherIcon"
               alt="Sunny image"
               width="92"
             ></v-img>
@@ -31,6 +33,7 @@
         :tick-labels="labels"
         class="mx-4"
         ticks
+        @change="onChangeDay"
       ></v-slider>
 
       <v-list class="transparent">
@@ -38,7 +41,8 @@
           <v-list-item-title>{{ item.day }}</v-list-item-title>
 
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <!-- <v-icon>{{ item.icon }}</v-icon> -->
+            <v-img :src="item.icon" width="24"></v-img>
           </v-list-item-icon>
 
           <v-list-item-subtitle class="text-right">
@@ -52,48 +56,69 @@
 
 
 <script>
+import weatherService from "./services/WeatherService";
+
 export default {
   name: "WeatherCard",
   data() {
     return {
-      labels: ["SU", "MO", "TU", "WED", "TH", "FR", "SA"],
-      time: 0,
-      forecast: [
-        {
-          day: "Tuesday",
-          icon: "mdi-white-balance-sunny",
-          temp: "24\xB0/12\xB0",
-        },
-        {
-          day: "Wednesday",
-          icon: "mdi-white-balance-sunny",
-          temp: "22\xB0/14\xB0",
-        },
-        { day: "Thursday", icon: "mdi-cloud", temp: "25\xB0/15\xB0" },
-      ],
-
-      cards: [
-        {
-          title: "Pre-fab homes",
-          src:
-            "https://birmilyonnokta.com/view/upload/images/company/2020/11/18/10/105334/6b8071fb1e665f5b9e0933c6f455cc1b.png",
-          flex: 12,
-        },
-        {
-          title: "Favorite road trips",
-          src:
-            "https://sosyalhalisaha.com/images/sivas-yuzbasoglu-hali-saha3_1600092352.jpg",
-          flex: 6,
-        },
-        {
-          title: "Best airlines",
-          src:
-            "https://sosyalhalisaha.com/images/sivas-yuzbasoglu-hali-saha2_1600092342.jpg",
-          flex: 6,
-        },
-      ],
+      labels: ["P", "S", "Ç", "P", "C", "C", "P"],
+      time: "",
+      forecast: [],
+      weatherIcon: "",
+      weatherData: [],
+      selectedDay: "",
     };
   },
+  mounted() {
+    var that = this;
+    weatherService.getWeather().then((response) => {
+      that.weatherData = JSON.parse(response.data[0].weather);
+      that.labels = that.weatherData.result.map(d => d.day.substr(0,1))
+
+      //Bugün
+      var today = that.weatherData.result[0];
+      this.setViewDay(today)
+
+      //Sonraki günler
+      this.setNextDays();
+    });
+  },
+  methods:{
+    onChangeDay(indices){
+      var day = this.weatherData.result[indices];
+      this.setViewDay(day)
+    },
+
+    setViewDay(day){
+       this.selectedDay = {
+        city: this.weatherData.city.toUpperCase(),
+        description:
+          day.day +
+          ", " +
+          new Date().toLocaleTimeString().substr(0, 5) +
+          ", " +
+          day.description,
+        weatherIcon: day.icon,
+        degree: parseInt(day.degree),
+      };
+    },
+
+    setNextDays(){
+      var that = this;
+      for (let index = 0; index < 3; index++) {
+        var data = that.weatherData.result[index];
+        var max = parseInt(data.max);
+        var min = parseInt(data.min);
+        var weather = {
+          day: data.day,
+          icon: data.icon,
+          temp: min + "\xB0" + "/" + max + "\xB0",
+        };
+        that.forecast.push(weather);
+      }
+    }
+  }
 };
 </script>
 
